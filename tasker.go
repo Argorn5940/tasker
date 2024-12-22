@@ -1,21 +1,39 @@
 package main
 
-import "time"
+import (
+	"os"
+	"strconv"
 
-type Task struct {
-	Title       string
-	Completed   bool
-	CreatedAt   time.Time
-	CompletedAt *time.Time
+	"github.com/aquasecurity/table"
+)
+
+type TaskManger struct {
+	tasks []Task
 }
 
-type Tasker []Task
-
-func (tasker *Tasker) Add(title string) {
-	task := Task{
-		Title:     title,
-		Completed: false,
-		CreatedAt: time.Now(),
+func NewTaskManger() *TaskManger {
+	return &TaskManger{
+		tasks: make([]Task, 0),
 	}
-	*tasker = append(*tasker, task)
+}
+
+func (tm *TaskManger) DisplyTasks() error {
+	t := table.New(os.Stdout)
+	t.SetHeaders("ID", "タスク", "状態", "作成日時", "メモ")
+
+	for _, task := range tm.tasks {
+		status := "✖"
+		if task.Done {
+			status = "✔"
+		}
+		t.AddRow(
+			strconv.Itoa(task.ID),
+			task.Title,
+			status,
+			task.Timestamp,
+			task.note,
+		)
+	}
+	t.Render()
+	return nil
 }

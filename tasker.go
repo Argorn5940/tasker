@@ -2,36 +2,33 @@ package main
 
 import (
 	"os"
-	"strconv"
 
 	"github.com/aquasecurity/table"
 )
 
-type TaskManger struct {
+type TaskManager struct {
 	tasks []Task
 }
 
-func NewTaskManger() *TaskManger {
-	return &TaskManger{
+func NewTaskManager() *TaskManager {
+	return &TaskManager{
 		tasks: make([]Task, 0),
 	}
 }
 
-func (tm *TaskManger) DisplyTasks() error {
+func (tm *TaskManager) DisplayTasks() error {
 	t := table.New(os.Stdout)
-	t.SetHeaders("ID", "タスク", "状態", "作成日時", "メモ")
+	t.SetHeaders("ID", "タスク", "状態")
 
 	for _, task := range tm.tasks {
 		status := "✖"
-		if task.Done {
+		if task.Completed {
 			status = "✔"
 		}
 		t.AddRow(
-			strconv.Itoa(task.ID),
+			task.ID,
 			task.Title,
 			status,
-			task.Timestamp,
-			task.note,
 		)
 	}
 	t.Render()

@@ -32,7 +32,7 @@ func main() {
 	}
 
 	switch os.Args[1] {
-	case "list":
+	case "-list":
 		if err := tm.DisplayTasks(); err != nil {
 			log.Fatal(err)
 		}

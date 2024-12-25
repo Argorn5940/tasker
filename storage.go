@@ -8,9 +8,10 @@ import (
 )
 
 type Task struct {
-	ID        string
-	Title     string
-	Completed bool
+	ID            string
+	Title         string
+	Completed     bool
+	CompletedDate string
 }
 
 type Storage struct {
@@ -47,14 +48,18 @@ func (s *Storage) ReadTasks() ([]Task, error) {
 
 	var tasks []Task
 	for _, record := range records {
-		if len(record) != 3 {
+		if len(record) < 3 {
 			continue
 		}
 		completed, _ := strconv.ParseBool(record[2])
 		task := Task{
-			ID:        record[0],
-			Title:     record[1],
-			Completed: completed,
+			ID:            record[0],
+			Title:         record[1],
+			Completed:     completed,
+			CompletedDate: "",
+		}
+		if len(record) > 3 {
+			task.CompletedDate = record[3]
 		}
 		tasks = append(tasks, task)
 	}

@@ -18,7 +18,7 @@ func NewTaskManager() *TaskManager {
 
 func (tm *TaskManager) DisplayTasks() error {
 	t := table.New(os.Stdout)
-	t.SetHeaders("ID", "タスク", "状態")
+	t.SetHeaders("ID", "タスク", "状態", "完了日")
 
 	for _, task := range tm.tasks {
 		status := "✖"
@@ -29,6 +29,7 @@ func (tm *TaskManager) DisplayTasks() error {
 			task.ID,
 			task.Title,
 			status,
+			task.CompletedDate,
 		)
 	}
 	t.Render()

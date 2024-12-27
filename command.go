@@ -11,6 +11,13 @@ func ListTasksCmd(tm *TaskManager) error {
 	return nil
 }
 
+func CompleteTaskCmd(tm *TaskManager, taskID string) error {
+	if err := tm.CompleteTask(taskID); err != nil {
+		return fmt.Errorf("タスクの完了処理に失敗しました: %v", err)
+	}
+	return nil
+}
+
 //HandleCommand コマンドの処理
 func HandleCommand(command string, tm *TaskManager, args []string) error {
 	switch command {

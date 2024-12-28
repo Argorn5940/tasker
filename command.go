@@ -18,6 +18,14 @@ func CompleteTaskCmd(tm *TaskManager, taskID string) error {
 	return nil
 }
 
+func AddTaskCmd(tm *TaskManager, title string) error {
+	if err := tm.AddTask(title); err != nil {
+		return fmt.Errorf("タスクの追加に失敗しました: %v", err)
+	}
+	fmt.Printf("新しいタスクを追加しました: %s\n", title)
+	return nil
+}
+
 //HandleCommand コマンドの処理
 func HandleCommand(command string, tm *TaskManager, args []string) error {
 	switch command {

@@ -36,6 +36,13 @@ func main() {
 		if err := tm.DisplayTasks(); err != nil {
 			log.Fatal(err)
 		}
+	case "-add":
+		if len(os.Args) < 3 {
+			log.Fatal("タスクの説明を入力してください")
+		}
+		if err := HandleCommand("-add", tm, os.Args[2:]); err != nil {
+			log.Fatal(err)
+		}
 	default:
 		log.Fatal("無効なコマンドです。'list'を使用してください")
 	}

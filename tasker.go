@@ -48,3 +48,19 @@ func (tm *TaskManager) CompleteTask(taskID string) error {
 	}
 	return fmt.Errorf("タスクが見つかりません:%s", taskID)
 }
+
+func (tm *TaskManager) AddTask(title string) error {
+	//新しいタスクIDを生成（既存タスクの数+1)
+	newID := fmt.Sprintf("%d", len(tm.tasks)+1)
+
+	//新しいタスクを作成
+	task := Task{
+		ID:            newID,
+		Title:         title,
+		Completed:     false,
+		CompletedDate: "",
+	}
+	//タスクをリストに追加
+	tm.tasks = append(tm.tasks, task)
+	return nil
+}

@@ -64,3 +64,13 @@ func (tm *TaskManager) AddTask(title string) error {
 	tm.tasks = append(tm.tasks, task)
 	return nil
 }
+
+func (tm *TaskManager) UpdateTask(taskID string, newTitle string) error {
+	for i := range tm.tasks {
+		if tm.tasks[1].ID == taskID {
+			tm.tasks[i].Title = newTitle
+			return nil
+		}
+	}
+	return fmt.Errorf("タスクが見つかりません: %s", taskID)
+}

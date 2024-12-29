@@ -1,8 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
-//ListTasksCmd、タスク一覧を表示するコマンドを処理
+// ListTasksCmd、タスク一覧を表示するコマンドを処理
 func ListTasksCmd(tm *TaskManager) error {
 	//DisplayTaskeメソッドを呼び出してタスク一覧を表示
 	if err := tm.DisplayTasks(); err != nil {
@@ -26,7 +28,7 @@ func AddTaskCmd(tm *TaskManager, title string) error {
 	return nil
 }
 
-//HandleCommand コマンドの処理
+// HandleCommand コマンドの処理
 func HandleCommand(command string, tm *TaskManager, args []string) error {
 	switch command {
 	case "-list":
@@ -42,6 +44,11 @@ func HandleCommand(command string, tm *TaskManager, args []string) error {
 			return fmt.Errorf("タスクの説明を入力してください")
 		}
 		return AddTaskCmd(tm, args[0])
+	case "-up":
+		if len(args) < 2 {
+			return fmt.Errorf("タスクIDと新しいタイトルを指定してください")
+		}
+		return tm.UpdateTask(args[0], args[1])
 	case "-del":
 		if len(args) < 1 {
 			return fmt.Errorf("削除するタスクIDを指定してください")

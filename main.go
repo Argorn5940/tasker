@@ -43,6 +43,13 @@ func main() {
 		if err := HandleCommand("-add", tm, os.Args[2:]); err != nil {
 			log.Fatal(err)
 		}
+	case "up":
+		if len(os.Args) < 4 {
+			log.Fatal("タスクIDと新しいタイトルを指定してください")
+		}
+		if err := HandleCommand("-up", tm, os.Args[2:]); err != nil {
+			log.Fatal(err)
+		}
 	default:
 		log.Fatal("無効なコマンドです。'list'を使用してください")
 	}

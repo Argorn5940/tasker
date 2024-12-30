@@ -74,3 +74,14 @@ func (tm *TaskManager) UpdateTask(taskID string, newTitle string) error {
 	}
 	return fmt.Errorf("タスクが見つかりません: %s", taskID)
 }
+
+func (tm *TaskManager) DeleteTask(taskID string) error {
+	for i := range tm.tasks {
+		if tm.tasks[i].ID == taskID {
+			//タスクを削除（スライスから要素を削除)
+			tm.tasks = append(tm.tasks[:i], tm.tasks[i+1:]...)
+			return nil
+		}
+	}
+	return fmt.Errorf("タスクが見つかりません: %s", taskID)
+}

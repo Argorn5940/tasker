@@ -36,6 +36,13 @@ func main() {
 		if err := tm.DisplayTasks(); err != nil {
 			log.Fatal(err)
 		}
+	case "-comp":
+		if len(os.Args) < 3 {
+			log.Fatal("完了するタスクIDを指定してください")
+		}
+		if err := HandleCommand("-comp", tm, os.Args[2:]); err != nil {
+			log.Fatal(err)
+		}
 	case "-add":
 		if len(os.Args) < 3 {
 			log.Fatal("タスクの説明を入力してください")
@@ -43,11 +50,18 @@ func main() {
 		if err := HandleCommand("-add", tm, os.Args[2:]); err != nil {
 			log.Fatal(err)
 		}
-	case "up":
+	case "-up":
 		if len(os.Args) < 4 {
 			log.Fatal("タスクIDと新しいタイトルを指定してください")
 		}
 		if err := HandleCommand("-up", tm, os.Args[2:]); err != nil {
+			log.Fatal(err)
+		}
+	case "-del":
+		if len(os.Args) < 3 {
+			log.Fatal("削除するタスクIDを指定してください")
+		}
+		if err := HandleCommand("-del", tm, os.Args[2:]); err != nil {
 			log.Fatal(err)
 		}
 	default:

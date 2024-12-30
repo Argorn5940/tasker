@@ -28,6 +28,14 @@ func AddTaskCmd(tm *TaskManager, title string) error {
 	return nil
 }
 
+func DeleteTaskCmd(tm *TaskManager, taskID string) error {
+	if err := tm.DeleteTask(taskID); err != nil {
+		return fmt.Errorf("タスクの削除に失敗しました: %s", err)
+	}
+	fmt.Printf("タスクID %sを削除しました\n", taskID)
+	return nil
+}
+
 // HandleCommand コマンドの処理
 func HandleCommand(command string, tm *TaskManager, args []string) error {
 	switch command {

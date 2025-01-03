@@ -81,6 +81,7 @@ func (s *Storage) WriteTasks(tasks []Task) error {
 			task.ID,
 			task.Title,
 			strconv.FormatBool(task.Completed),
+			task.CompletedDate,
 		}
 		if err := writer.Write(record); err != nil {
 			return fmt.Errorf("failed to write CSV record: %v", err)

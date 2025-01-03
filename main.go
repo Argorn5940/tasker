@@ -36,7 +36,7 @@ func main() {
 		if err := tm.DisplayTasks(); err != nil {
 			log.Fatal(err)
 		}
-	case "-comp":
+	case "-comp": // -compケースを追加
 		if len(os.Args) < 3 {
 			log.Fatal("完了するタスクIDを指定してください")
 		}

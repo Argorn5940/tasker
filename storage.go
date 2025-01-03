@@ -89,3 +89,15 @@ func (s *Storage) WriteTasks(tasks []Task) error {
 	}
 	return nil
 }
+
+func DisplayHelp() {
+	helpText := `使用可能なコマンド:
+-list       タスク一覧を表示
+-comp ID    指定したIDのタスクを完了にする
+-add TITLE  新しいタスクを追加
+-up ID TEXT タスクの内容を更新
+-del ID     指定したIDのタスクを削除
+-help       このヘルプメッセージを表示`
+
+	fmt.Println(helpText)
+}

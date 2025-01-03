@@ -32,6 +32,9 @@ func main() {
 	}
 
 	switch os.Args[1] {
+	case "-help":
+		DisplayHelp()
+		return
 	case "-list":
 		if err := tm.DisplayTasks(); err != nil {
 			log.Fatal(err)

@@ -67,7 +67,7 @@ func (tm *TaskManager) AddTask(title string) error {
 
 func (tm *TaskManager) UpdateTask(taskID string, newTitle string) error {
 	for i := range tm.tasks {
-		if tm.tasks[1].ID == taskID {
+		if tm.tasks[i].ID == taskID {
 			tm.tasks[i].Title = newTitle
 			return nil
 		}

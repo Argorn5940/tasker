@@ -24,9 +24,9 @@ func (tm *TaskManager) DisplayTasks() error {
 	t.SetHeaders("ID", "タスク", "状態", "完了日")
 
 	for _, task := range tm.tasks {
-		status := "✖"
+		status := "❌"
 		if task.Completed {
-			status = "✔"
+			status = "✅"
 		}
 		t.AddRow(
 			task.ID,

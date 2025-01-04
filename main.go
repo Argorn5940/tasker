@@ -4,7 +4,16 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"runtime"
+
+	"github.com/fatih/color"
 )
+
+func init() {
+	if runtime.GOOS == "windows" {
+		color.NoColor = false
+	}
+}
 
 func main() {
 	// 実行ファイルのディレクトリを取得

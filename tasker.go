@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"strconv"
 	"time"
 
 	"github.com/aquasecurity/table"
@@ -50,8 +51,14 @@ func (tm *TaskManager) CompleteTask(taskID string) error {
 }
 
 func (tm *TaskManager) AddTask(title string) error {
+	maxID := 0
+	for _, task := range tm.tasks {
+		if id, err := strconv.Atoi(task.ID); err == nil && id > maxID {
+			maxID = id
+		}
+	}
 	//新しいタスクIDを生成（既存タスクの数+1)
-	newID := fmt.Sprintf("%d", len(tm.tasks)+1)
+	newID := fmt.Sprintf("%02d", maxID+1)
 
 	//新しいタスクを作成
 	task := Task{

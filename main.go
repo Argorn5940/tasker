@@ -22,8 +22,18 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// CSVファイルのパスを実行ファイルと同じディレクトリに設定
+	//カレントディレクトリ内のCSVファイルを検索
+	files, err := filepath.Glob(filepath.Join(dir, "*.csv"))
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// CSVファイルが見つからない場合はデフォルトのtasks.csvを使用
 	csvPath := filepath.Join(dir, "tasks.csv")
+	if len(files) > 0 {
+		csvPath = files[0] // 最初に見つかったcsvファイルを使用
+	}
+
 	storage := NewStorage(csvPath)
 	tm := NewTaskManager()
 

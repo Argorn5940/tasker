@@ -6,6 +6,7 @@ import (
 	"os"
 	"path/filepath"
 	"runtime"
+	"sort"
 	"strconv"
 
 	"github.com/fatih/color"
@@ -29,12 +30,9 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	sort.Strings(files)
 
-	//見つかった場合CSVファイルをすべて表示
-	log.Printf("Found CSV files:")
-	for _, f := range files {
-		log.Printf("- %s", f)
-	}
+	//csvファイルが見つからない場合はデフォルトのtasks.csvを使用
 
 	// CSVファイルが見つからない場合はデフォルトのtasks.csvを使用
 	csvPath := filepath.Join(dir, "tasks.csv")
@@ -47,12 +45,13 @@ func main() {
 		fmt.Print("使用するファイルの番号を選択してください(デフォルト:1): ")
 		var choice string
 		fmt.Scanln(&choice)
+
 		if i, err := strconv.Atoi(choice); err == nil && i > 0 && i <= len(files) {
-			csvPath = files[0]
+			csvPath = files[i-1]
 		} else {
 			csvPath = files[0]
+			log.Printf("invalid selection, using  default: %s\n", csvPath)
 		}
-		log.Printf("Selected CSV file: %s\n", csvPath)
 	}
 
 	storage := NewStorage(csvPath)
